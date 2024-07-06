@@ -77,6 +77,12 @@ select {
 
 /* Utility Classes */
 
+.wrapper {
+  width: min(50rem, 100vw - 2rem);
+  margin: auto;
+  margin-top: 1rem;
+}
+
 .flex {
   display: flex;
   gap: 1rem; 
@@ -91,6 +97,12 @@ select {
   grid-template-columns: 1fr 1fr;
 }
 
+@media (max-width: 500px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .bold {
   font-weight: 600;
 }
@@ -98,18 +110,12 @@ select {
 /* General Styling */
 
 body {
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 h1 {
   text-align: center;
   margin-top: 3rem;
-}
-
-.wrapper {
-  width: 50rem;
-  margin: auto;
-  margin-top: 1rem;
 }
 
 section {
@@ -118,4 +124,13 @@ section {
 
 input {
   padding: .1rem 1rem;
+}
+
+.person-container {
+  
+}
+
+button {
+  border: none;
+  background-color: white;
 }

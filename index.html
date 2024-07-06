@@ -11,9 +11,11 @@
     <div class="wrapper grid">
         <div>
             <section class="flex column top-section">
-                <label class="bold" for="people">Who is splitting the bill?</label>
-                <input type="text" id="people" class="people-splittng-bill">
-                <input type="button" value="Add">
+                <label class="bold" for="people-splittng-bill">Who is splitting the bill?</label>
+                <input type="text" id="people-splittng-bill">
+                <input type="button" value="Add" id="add-person-btn" onclick="addPersonSplittingBill()">
+                <div id="list-of-people-div">
+                </div>
                 <label class="bold" for="who-paid">Who paid the bill?</label>
                 <select name="who-paid" id="who-paid">
                 </select>
@@ -24,10 +26,7 @@
                 <label class="bold" for="price">Price?</label>
                 <input type="number" id="price">
                 <label class="bold" for="people-splitting-item">Who is splitting the item?</label>
-                <div>
-                    <input type="checkbox" name="people-splitting-item" id="person-1" value="">
-                    <label for="person-1">bob</label>
-                </div>
+                <input type="checkbox" name="" id="people-splitting-item">
                 <input type="button" value="Add">
             </section>
         </div>
