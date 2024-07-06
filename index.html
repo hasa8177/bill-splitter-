@@ -12,7 +12,7 @@
         <div>
             <section class="flex column top-section">
                 <label class="bold" for="people-splittng-bill">Who is splitting the bill?</label>
-                <input type="text" id="people-splittng-bill">
+                <input type="text" id="people-splittng-bill" autocomplete="off">
                 <input type="button" value="Add" id="add-person-btn" onclick="addPersonSplittingBill()">
                 <div id="list-of-people-div">
                 </div>
@@ -27,11 +27,12 @@
                 <input type="number" id="price">
                 <label class="bold" for="people-splitting-item">Who is splitting the item?</label>
                 <input type="checkbox" name="" id="people-splitting-item">
-                <input type="button" value="Add">
+                <input type="button" value="Add" id="add-item">
             </section>
         </div>
         <section>
             <p class="bold" >Added Items:</p>
+            <ul id="items-list"></ul>
         </section>
     </div>
     <script src="app.js"></script>

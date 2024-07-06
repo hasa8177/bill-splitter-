@@ -1,14 +1,18 @@
 const elements = 
 {
-    peopleSplittingBill: document.getElementById('people-splittng-bill'),
+    whoIsSplittingInput: document.getElementById('people-splittng-bill'),
     addPersonBtn: document.getElementById('add-person-btn'),
-    listOfPeopleDiv: document.getElementById('list-of-people-div')
+    listOfPeopleDiv: document.getElementById('list-of-people-div'),
+    whoPaid: document.getElementById('who-paid'),
+    addItemBtn: document.getElementById('add-item')
 }
 
 const billSplitterInfo = [];
 
 const addPersonSplittingBill = () => {
-    const name = elements.peopleSplittingBill.value
+    if (elements.whoIsSplittingInput.value === '') return;
+
+    const name = elements.whoIsSplittingInput.value
 
     const personContainer = document.createElement('div');
     personContainer.classList.add('flex', 'person-container');
@@ -27,7 +31,9 @@ const addPersonSplittingBill = () => {
 
     billSplitterInfo.push({name: name})
 
-    elements.peopleSplittingBill.value = ''
+    elements.whoIsSplittingInput.value = '';
+
+    fillWhoPaidDropDown(name);
 
     console.log(billSplitterInfo);
 }
@@ -42,6 +48,17 @@ const removePerson = (name) => {
         };
 }
 
-elements.peopleSplittingBill.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && elements.peopleSplittingBill.value !== '') addPersonSplittingBill();
+const fillWhoPaidDropDown = (name) => {
+    const option = document.createElement('option');
+    option.value = name; 
+    option.innerText = name;
+    elements.whoPaid.appendChild(option)
+}
+
+elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && elements.whoIsSplittingInput.value !== '') addPersonSplittingBill();
+})
+
+elements.addItemBtn.addEventListener('click', () => {
+    let personThatPaid = elements.whoPaid.value;
 })
