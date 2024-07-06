@@ -7,23 +7,34 @@
     <title>Document</title>
 </head>
 <body>
-    <section>
-        <label for="people">Who is splitting the bill?</label>
-        <input type="text" id="people">
-        <input type="button" value="Add">
-        <label for="who-paid">Who paid the bill?</label>
-        <select name="who-paid" id="who-paid">
-        </select>
-    </section>
-    <section>
-        <label for="item">Item being split?</label>
-        <input type="text" id="item">
-        <label for="price">Price?</label>
-        <input type="text" id="price">
-        <select name="person" id=""></select>
-        <input type="button" value="Submit">
-    </section>
-    <section></section>
+    <h1>Bill Splitter</h1>
+    <div class="wrapper grid">
+        <div>
+            <section class="flex column top-section">
+                <label class="bold" for="people">Who is splitting the bill?</label>
+                <input type="text" id="people" class="people-splittng-bill">
+                <input type="button" value="Add">
+                <label class="bold" for="who-paid">Who paid the bill?</label>
+                <select name="who-paid" id="who-paid">
+                </select>
+            </section>
+            <section class="flex column bottom-section">
+                <label class="bold" for="item">Item being split?</label>
+                <input type="text" id="item">
+                <label class="bold" for="price">Price?</label>
+                <input type="number" id="price">
+                <label class="bold" for="people-splitting-item">Who is splitting the item?</label>
+                <div>
+                    <input type="checkbox" name="people-splitting-item" id="person-1" value="">
+                    <label for="person-1">bob</label>
+                </div>
+                <input type="button" value="Add">
+            </section>
+        </div>
+        <section>
+            <p class="bold" >Added Items:</p>
+        </section>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>

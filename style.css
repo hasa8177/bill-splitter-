@@ -77,4 +77,45 @@ select {
 
 /* Utility Classes */
 
+.flex {
+  display: flex;
+  gap: 1rem; 
+}
+
+.column {
+  flex-direction: column;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.bold {
+  font-weight: 600;
+}
+
 /* General Styling */
+
+body {
+  font-size: 1rem;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.wrapper {
+  width: 50rem;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+section {
+  margin: 1rem;
+}
+
+input {
+  padding: .1rem 1rem;
+}
