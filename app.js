@@ -4,7 +4,10 @@ const elements =
     addPersonBtn: document.getElementById('add-person-btn'),
     listOfPeopleDiv: document.getElementById('list-of-people-div'),
     whoPaid: document.getElementById('who-paid'),
-    addItemBtn: document.getElementById('add-item')
+    addItemBtn: document.getElementById('add-item'),
+    itemValue: document.getElementById('item'),
+    checkboxDiv: document.getElementById('checkbox-div'),
+    priceValue: document.getElementById('price')
 }
 
 const billSplitterInfo = [];
@@ -34,21 +37,7 @@ const addPersonSplittingBill = () => {
     elements.whoIsSplittingInput.value = '';
 
     fillWhoPaidDropDown(name);
-
-    console.log(billSplitterInfo);
-}
-
-const removePerson = (person) => {
-    document.getElementById(person).remove();
-    document.getElementById(`${person}-dropdown`).remove();
-
-    for (let i = 0; i < billSplitterInfo.length ; i++) {
-            if (billSplitterInfo[i].name === person ) {
-                billSplitterInfo.splice(i, 1)
-            }
-        };
-
-    console.log(billSplitterInfo);
+    addCheckbox(name)
 }
 
 const fillWhoPaidDropDown = (name) => {
@@ -59,6 +48,44 @@ const fillWhoPaidDropDown = (name) => {
     elements.whoPaid.appendChild(option) 
 }
 
+const addCheckbox = (name) => {
+    const checkboxContainer = document.createElement('div');
+    checkboxContainer.classList.add('flex');
+    checkboxContainer.setAttribute('id', `${name}-checkbox-container`)
+    
+    const input = document.createElement('input');
+    input.setAttribute('type', 'checkbox')
+    input.setAttribute('id', `${name}-checkbox`);
+    input.setAttribute('name', `people-to-split-item`);
+    
+    const label = document.createElement('label');
+    label.innerText = name; 
+    label.setAttribute('for', `${name}-checkbox`);
+    
+    checkboxContainer.appendChild(input);
+    checkboxContainer.appendChild(label);
+    elements.checkboxDiv.appendChild(checkboxContainer);
+}
+
+const addItem = () => {
+    const item = elements.itemValue.value
+    elements.itemValue.value = '';
+    
+    console.log(billSplitterInfo, item);
+}
+
+const removePerson = (person) => {
+    document.getElementById(person).remove();
+    document.getElementById(`${person}-dropdown`).remove();
+    document.getElementById(`${person}-checkbox-container`).remove();
+
+    for (let i = 0; i < billSplitterInfo.length ; i++) {
+            if (billSplitterInfo[i].name === person ) {
+                billSplitterInfo.splice(i, 1)
+            }
+        };
+}
+
 elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && elements.whoIsSplittingInput.value !== '') addPersonSplittingBill();
 })
@@ -66,4 +93,8 @@ elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
 elements.addItemBtn.addEventListener('click', () => {
     let personThatPaid = elements.whoPaid.value;
 
+})
+
+elements.itemValue.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && elements.itemValue.value !== '') addItem();
 })
