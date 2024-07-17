@@ -109,6 +109,11 @@ select {
 
 /* General Styling */
 
+.top-section, .bottom-section, .added-items-section {
+  background-color: lightgray;
+  padding: 1rem;
+}
+
 body {
   font-size: 1.2rem;
 }
@@ -124,10 +129,6 @@ section {
 
 input {
   padding: .1rem 1rem;
-}
-
-.person-container {
-  
 }
 
 button {

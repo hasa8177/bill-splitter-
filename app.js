@@ -38,21 +38,25 @@ const addPersonSplittingBill = () => {
     console.log(billSplitterInfo);
 }
 
-const removePerson = (name) => {
-    document.getElementById(name).remove();
+const removePerson = (person) => {
+    document.getElementById(person).remove();
+    document.getElementById(`${person}-dropdown`).remove();
 
     for (let i = 0; i < billSplitterInfo.length ; i++) {
-            if (billSplitterInfo[i].name === name ) {
+            if (billSplitterInfo[i].name === person ) {
                 billSplitterInfo.splice(i, 1)
             }
         };
+
+    console.log(billSplitterInfo);
 }
 
 const fillWhoPaidDropDown = (name) => {
     const option = document.createElement('option');
     option.value = name; 
     option.innerText = name;
-    elements.whoPaid.appendChild(option)
+    option.setAttribute('id', `${name}-dropdown`);
+    elements.whoPaid.appendChild(option) 
 }
 
 elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
@@ -61,4 +65,5 @@ elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
 
 elements.addItemBtn.addEventListener('click', () => {
     let personThatPaid = elements.whoPaid.value;
+
 })
