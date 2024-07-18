@@ -31,15 +31,19 @@
                 <input type="button" value="Add" id="add-item" onclick="addItem()">
             </section>
         </div>
-        <section class="added-items-section flex" id="added-item-section">
+        <section class="added-items-section flex column" id="added-item-section">
             <div>
                 <p class="bold" >Added Items:</p>
                 <ul id="items-list" role="list"></ul>
             </div>
-            <input type="button" value="Calculate" id="add-item">
+            <div class="column flex">
+                <div class="flex bold total"><p>Total:</p><p id="total">$0</p></div>
+                <input type="button" value="Calculate" id="add-item" onclick="calculate()">
+            </div>
         </section>
         <section class="results-section">
-
+            <p class="bold">Results:</p>
+            <ul role="list" id="results-list"></ul>
         </section>
     </div>
     <script src="app.js"></script>

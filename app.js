@@ -9,10 +9,13 @@ const elements =
     checkboxDiv: document.getElementById('checkbox-div'),
     priceValue: document.getElementById('price'),
     itemInputSection: document.getElementById('item-input-section'),
-    itemsList: document.getElementById('items-list')
+    itemsList: document.getElementById('items-list'), 
+    resultsList: document.getElementById('results-list'),
+    totalElement: document.getElementById('total'),
 }
 
 const billSplitterInfo = [];
+let total = 0; 
 
 const addPersonSplittingBill = () => {
     if (elements.whoIsSplittingInput.value === '') return;
@@ -111,8 +114,18 @@ const addItem = () => {
     listElement.appendChild(itemElement);
     listElement.appendChild(priceElement);
     elements.itemsList.appendChild(listElement);
+
+    updateTotal(price);
     
-    console.log(billSplitterInfo)
+    elements.itemValue.focus();
+
+    console.log(billSplitterInfo);
+}
+
+const updateTotal = (price) => {
+    total += price; 
+
+    elements.totalElement.innerText = total; 
 }
 
 const removePerson = (person) => {
@@ -125,6 +138,36 @@ const removePerson = (person) => {
                 billSplitterInfo.splice(i, 1)
             }
         };
+}
+
+const calculate = () => {
+    elements.resultsList.innerHTML = '';
+
+    const personOwed = elements.whoPaid.value;
+    let amountOwedTotal = 0;
+
+    for (let i = 0; i < billSplitterInfo.length; i++) {
+        if (billSplitterInfo[i].name !== personOwed) {
+            amountOwedTotal += billSplitterInfo[i].amountOwed
+        }
+    }
+
+    const personOwedElement = document.createElement('p');
+    personOwedElement.innerText = `${personOwed} is owed: $${amountOwedTotal.toFixed(2)}`
+    elements.resultsList.appendChild(personOwedElement);
+
+    for (let i = 0; i < billSplitterInfo.length; i++) {
+
+        if (billSplitterInfo[i].name !== personOwed) {
+            const name = billSplitterInfo[i].name; 
+            const owes = billSplitterInfo[i].amountOwed;
+    
+            const owesElement = document.createElement('p');
+            owesElement.innerText = `${name} owes $${owes.toFixed(2)}`
+    
+            elements.resultsList.appendChild(owesElement)
+        }
+    }
 }
 
 elements.whoIsSplittingInput.addEventListener('keydown', (e) => {

@@ -136,12 +136,7 @@ button {
   background-color: lightgray;
 }
 
-li {
-  justify-content: space-between;
-}
-
-.added-items-section {
-  flex-direction: column;
+.added-items-section, li, .total {
   justify-content: space-between;
 }
 
