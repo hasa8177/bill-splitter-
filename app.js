@@ -7,7 +7,9 @@ const elements =
     addItemBtn: document.getElementById('add-item'),
     itemValue: document.getElementById('item'),
     checkboxDiv: document.getElementById('checkbox-div'),
-    priceValue: document.getElementById('price')
+    priceValue: document.getElementById('price'),
+    itemInputSection: document.getElementById('item-input-section'),
+    itemsList: document.getElementById('items-list')
 }
 
 const billSplitterInfo = [];
@@ -32,12 +34,14 @@ const addPersonSplittingBill = () => {
 
     elements.listOfPeopleDiv.appendChild(personContainer);
 
-    billSplitterInfo.push({name: name})
+    billSplitterInfo.push({name: name, amountOwed: 0})
 
     elements.whoIsSplittingInput.value = '';
 
     fillWhoPaidDropDown(name);
-    addCheckbox(name)
+    addCheckbox(name);
+
+
 }
 
 const fillWhoPaidDropDown = (name) => {
@@ -68,10 +72,47 @@ const addCheckbox = (name) => {
 }
 
 const addItem = () => {
+    if (elements.itemValue.value === '' || elements.priceValue.value === '') return;
+
     const item = elements.itemValue.value
+    const price = elements.priceValue.value
+
     elements.itemValue.value = '';
+    elements.priceValue.value = '';
+
+    peopleSplittingItem = [];
+
+    for (let i = 0; i < billSplitterInfo.length; i++) {
+        if (document.getElementById(`${billSplitterInfo[i].name}-checkbox`).checked) {
+            peopleSplittingItem.push(billSplitterInfo[i].name)
+        }
+    }
+
+    const itemCostPerPerson = price / peopleSplittingItem.length;
+
+    for (let i = 0; i < peopleSplittingItem.length; i++) {
+        const name = peopleSplittingItem[i]
+        for (let j = 0; j < billSplitterInfo.length; j++) {
+            if (billSplitterInfo[j].name === name) {
+                billSplitterInfo[j].amountOwed += itemCostPerPerson
+            }
+        }
+    }
+
+    const listElement = document.createElement('li');
+    listElement.classList.add('flex');
     
-    console.log(billSplitterInfo, item);
+    const itemElement = document.createElement('span');
+    itemElement.innerText = item;
+
+    const priceElement = document.createElement('span');
+    priceElement.innerText = price; 
+    
+    listElement.appendChild(itemElement);
+    listElement.appendChild(priceElement);
+    elements.itemsList.appendChild(listElement);
+    
+    console.log(billSplitterInfo)
 }
 
 const removePerson = (person) => {
@@ -90,11 +131,6 @@ elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && elements.whoIsSplittingInput.value !== '') addPersonSplittingBill();
 })
 
-elements.addItemBtn.addEventListener('click', () => {
-    let personThatPaid = elements.whoPaid.value;
-
-})
-
-elements.itemValue.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && elements.itemValue.value !== '') addItem();
+elements.itemInputSection.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addItem();
 })

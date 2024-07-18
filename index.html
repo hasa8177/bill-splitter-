@@ -20,9 +20,9 @@
                 <select name="who-paid" id="who-paid">
                 </select>
             </section>
-            <section class="flex column bottom-section">
+            <section class="flex column bottom-section" id="item-input-section">
                 <label class="bold" for="item">Item being split?</label>
-                <input type="text" id="item">
+                <input type="text" id="item" autocomplete="off">
                 <label class="bold" for="price">Price?</label>
                 <input type="number" id="price">
                 <label class="bold" for="people-splitting-item">Who is splitting the item?</label>
@@ -31,9 +31,15 @@
                 <input type="button" value="Add" id="add-item" onclick="addItem()">
             </section>
         </div>
-        <section class="added-items-section">
-            <p class="bold" >Added Items:</p>
-            <ul id="items-list"></ul>
+        <section class="added-items-section flex" id="added-item-section">
+            <div>
+                <p class="bold" >Added Items:</p>
+                <ul id="items-list" role="list"></ul>
+            </div>
+            <input type="button" value="Calculate" id="add-item">
+        </section>
+        <section class="results-section">
+
         </section>
     </div>
     <script src="app.js"></script>

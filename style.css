@@ -97,7 +97,7 @@ select {
   grid-template-columns: 1fr 1fr;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
   }
@@ -109,7 +109,7 @@ select {
 
 /* General Styling */
 
-.top-section, .bottom-section, .added-items-section {
+section {
   background-color: lightgray;
   padding: 1rem;
 }
@@ -134,4 +134,23 @@ input {
 button {
   border: none;
   background-color: lightgray;
+}
+
+li {
+  justify-content: space-between;
+}
+
+.added-items-section {
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.results-section {
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .results-section {
+    grid-column: 1
+  }
 }
