@@ -12,6 +12,8 @@ const elements =
     itemsList: document.getElementById('items-list'), 
     resultsList: document.getElementById('results-list'),
     totalElement: document.getElementById('total'),
+    selectAllDiv: document.getElementById('select-all-div'),
+    checkAll: document.getElementById('check-all'),
 }
 
 const billSplitterInfo = [];
@@ -56,6 +58,10 @@ const fillWhoPaidDropDown = (name) => {
 }
 
 const addCheckbox = (name) => {
+    if (billSplitterInfo.length > 1) {
+        elements.selectAllDiv.classList.remove('hidden')
+    }
+
     const checkboxContainer = document.createElement('div');
     checkboxContainer.classList.add('flex');
     checkboxContainer.setAttribute('id', `${name}-checkbox-container`)
@@ -123,9 +129,9 @@ const addItem = () => {
 }
 
 const updateTotal = (price) => {
-    total += price; 
-
-    elements.totalElement.innerText = total; 
+    total += parseFloat(price); 
+    elements.totalElement.innerText = ''; 
+    elements.totalElement.innerText = `$${total}`; 
 }
 
 const removePerson = (person) => {
@@ -138,6 +144,10 @@ const removePerson = (person) => {
                 billSplitterInfo.splice(i, 1)
             }
         };
+
+    if (billSplitterInfo.length < 2) {
+        elements.selectAllDiv.classList.add('hidden')
+    }
 }
 
 const calculate = () => {
@@ -176,4 +186,23 @@ elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
 
 elements.itemInputSection.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') addItem();
+})
+
+
+elements.checkAll.addEventListener('change', () => {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+    for (let checkbox of checkboxes) {
+        checkbox.checked = elements.checkAll.checked
+    }
+})
+
+elements.checkboxDiv.addEventListener('change', () => {
+    const checkboxes = document.querySelectorAll('#checkbox-div input[type="checkbox"]');
+
+    if (checkboxes.length > 1) {
+        let checkedBoolean = document.querySelectorAll('#checkbox-div input[type="checkbox"]:checked').length === checkboxes.length;
+
+        elements.checkAll.checked = checkedBoolean;
+    }
 })

@@ -107,6 +107,14 @@ select {
   font-weight: 600;
 }
 
+.hidden {
+  display: none;
+}
+
+.outline {
+  outline: 1px solid black;
+}
+
 /* General Styling */
 
 section {
