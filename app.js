@@ -16,7 +16,7 @@ const elements =
     checkAll: document.getElementById('check-all'),
 }
 
-const billSplitterInfo = [];
+const allUserData = [];
 let total = 0; 
 
 const addPersonSplittingBill = () => {
@@ -39,7 +39,7 @@ const addPersonSplittingBill = () => {
 
     elements.listOfPeopleDiv.appendChild(personContainer);
 
-    billSplitterInfo.push({name: name, amountOwed: 0})
+    allUserData.push({name: name, amountOwed: 0})
 
     elements.whoIsSplittingInput.value = '';
 
@@ -58,7 +58,7 @@ const fillWhoPaidDropDown = (name) => {
 }
 
 const addCheckbox = (name) => {
-    if (billSplitterInfo.length > 1) {
+    if (allUserData.length > 1) {
         elements.selectAllDiv.classList.remove('hidden')
     }
 
@@ -91,9 +91,9 @@ const addItem = () => {
 
     peopleSplittingItem = [];
 
-    for (let i = 0; i < billSplitterInfo.length; i++) {
-        if (document.getElementById(`${billSplitterInfo[i].name}-checkbox`).checked) {
-            peopleSplittingItem.push(billSplitterInfo[i].name)
+    for (let i = 0; i < allUserData.length; i++) {
+        if (document.getElementById(`${allUserData[i].name}-checkbox`).checked) {
+            peopleSplittingItem.push(allUserData[i].name)
         }
     }
 
@@ -101,9 +101,9 @@ const addItem = () => {
 
     for (let i = 0; i < peopleSplittingItem.length; i++) {
         const name = peopleSplittingItem[i]
-        for (let j = 0; j < billSplitterInfo.length; j++) {
-            if (billSplitterInfo[j].name === name) {
-                billSplitterInfo[j].amountOwed += itemCostPerPerson
+        for (let j = 0; j < allUserData.length; j++) {
+            if (allUserData[j].name === name) {
+                allUserData[j].amountOwed += itemCostPerPerson
             }
         }
     }
@@ -125,13 +125,14 @@ const addItem = () => {
     
     elements.itemValue.focus();
 
-    console.log(billSplitterInfo);
+    console.log(allUserData);
 }
 
 const updateTotal = (price) => {
     total += parseFloat(price); 
+    const formattedTotal = total.toFixed(2);
     elements.totalElement.innerText = ''; 
-    elements.totalElement.innerText = `$${total}`; 
+    elements.totalElement.innerText = `$${formattedTotal}`; 
 }
 
 const removePerson = (person) => {
@@ -139,13 +140,13 @@ const removePerson = (person) => {
     document.getElementById(`${person}-dropdown`).remove();
     document.getElementById(`${person}-checkbox-container`).remove();
 
-    for (let i = 0; i < billSplitterInfo.length ; i++) {
-            if (billSplitterInfo[i].name === person ) {
-                billSplitterInfo.splice(i, 1)
+    for (let i = 0; i < allUserData.length ; i++) {
+            if (allUserData[i].name === person ) {
+                allUserData.splice(i, 1)
             }
         };
 
-    if (billSplitterInfo.length < 2) {
+    if (allUserData.length < 2) {
         elements.selectAllDiv.classList.add('hidden')
     }
 }
@@ -156,9 +157,9 @@ const calculate = () => {
     const personOwed = elements.whoPaid.value;
     let amountOwedTotal = 0;
 
-    for (let i = 0; i < billSplitterInfo.length; i++) {
-        if (billSplitterInfo[i].name !== personOwed) {
-            amountOwedTotal += billSplitterInfo[i].amountOwed
+    for (let i = 0; i < allUserData.length; i++) {
+        if (allUserData[i].name !== personOwed) {
+            amountOwedTotal += allUserData[i].amountOwed
         }
     }
 
@@ -166,11 +167,11 @@ const calculate = () => {
     personOwedElement.innerText = `${personOwed} is owed: $${amountOwedTotal.toFixed(2)}`
     elements.resultsList.appendChild(personOwedElement);
 
-    for (let i = 0; i < billSplitterInfo.length; i++) {
+    for (let i = 0; i < allUserData.length; i++) {
 
-        if (billSplitterInfo[i].name !== personOwed) {
-            const name = billSplitterInfo[i].name; 
-            const owes = billSplitterInfo[i].amountOwed;
+        if (allUserData[i].name !== personOwed) {
+            const name = allUserData[i].name; 
+            const owes = allUserData[i].amountOwed;
     
             const owesElement = document.createElement('p');
             owesElement.innerText = `${name} owes $${owes.toFixed(2)}`
@@ -185,9 +186,8 @@ elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
 })
 
 elements.itemInputSection.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') addItem();
+    if (e.key === 'Enter' && document.querySelectorAll('#checkbox-div input[type="checkbox"]:checked').length > 1) addItem();
 })
-
 
 elements.checkAll.addEventListener('change', () => {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
