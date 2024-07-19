@@ -110,15 +110,26 @@ const addItem = () => {
 
     const listElement = document.createElement('li');
     listElement.classList.add('flex');
+    listElement.setAttribute('id', `${item}`)
+
+    const div = document.createElement('div');
+    div.classList.add('flex');
     
+    const removeBtn = document.createElement('button');
+    removeBtn.innerText = 'X';
+    removeBtn.setAttribute('onclick', `removeItem('${item}')`);
+    div.appendChild(removeBtn);
+
     const itemElement = document.createElement('span');
     itemElement.innerText = item;
+    div.appendChild(itemElement);
 
+    listElement.appendChild(div);
+    
     const priceElement = document.createElement('span');
     priceElement.innerText = price; 
-    
-    listElement.appendChild(itemElement);
     listElement.appendChild(priceElement);
+    
     elements.itemsList.appendChild(listElement);
 
     updateTotal(price);
@@ -149,6 +160,10 @@ const removePerson = (person) => {
     if (allUserData.length < 2) {
         elements.selectAllDiv.classList.add('hidden')
     }
+}
+
+const removeItem = (item) => {
+    document.getElementById(`${item}`).remove();
 }
 
 const calculate = () => {
