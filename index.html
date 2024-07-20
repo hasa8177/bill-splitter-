@@ -28,7 +28,8 @@
                 <label class="bold" for="people-splitting-item">Who is splitting the item?</label>
                 <div>
                     <div class="flex hidden" id="select-all-div"><input type="checkbox" name="check-all" id="check-all"><label for="check-all">Select All</label></div>
-                    <div id="checkbox-div">
+                    <div id="checkbox-div"
+                    >
                     </div>
                 </div>
                 <input type="button" value="Add" id="add-item" onclick="addItem()">
@@ -45,7 +46,9 @@
             </div>
         </section>
         <section class="results-section">
-            <p class="bold">Results:</p>
+            <nav class="flex" id="results-nav">
+                <p class="bold">Results:</p>
+            </nav>
             <ul role="list" id="results-list"></ul>
         </section>
     </div>

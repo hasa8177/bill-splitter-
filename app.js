@@ -14,6 +14,7 @@ const elements =
     totalElement: document.getElementById('total'),
     selectAllDiv: document.getElementById('select-all-div'),
     checkAll: document.getElementById('check-all'),
+    resultsNav: document.getElementById('results-nav')
 }
 
 const allUserData = [];
@@ -173,6 +174,8 @@ const removeItem = (item) => {
 }
 
 const calculate = () => {
+    if (elements.totalElement.innerText === '$0') return; 
+
     elements.resultsList.innerHTML = '';
 
     const personOwed = elements.whoPaid.value;
@@ -199,6 +202,24 @@ const calculate = () => {
     
             elements.resultsList.appendChild(owesElement)
         }
+    }
+
+    createResultButtons();
+}
+
+const createResultButtons = () => {
+    for (let people of allUserData) {
+        const button = document.createElement('button'); 
+        button.innerText = people.name; 
+        button.setAttribute('onclick', 'viewIndividualBreakdown()');
+        button.classList.add('results-btn')
+        elements.resultsNav.appendChild(button);
+    }
+}
+
+const viewIndividualBreakdown = () => {
+    for (people in allUserData) {
+        
     }
 }
 
