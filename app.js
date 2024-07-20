@@ -39,14 +39,12 @@ const addPersonSplittingBill = () => {
 
     elements.listOfPeopleDiv.appendChild(personContainer);
 
-    allUserData.push({name: name, amountOwed: 0})
+    allUserData.push({name: name, amountOwed: 0, thingsPurchased: {}})
 
     elements.whoIsSplittingInput.value = '';
 
     fillWhoPaidDropDown(name);
     addCheckbox(name);
-
-
 }
 
 const fillWhoPaidDropDown = (name) => {
@@ -103,7 +101,8 @@ const addItem = () => {
         const name = peopleSplittingItem[i]
         for (let j = 0; j < allUserData.length; j++) {
             if (allUserData[j].name === name) {
-                allUserData[j].amountOwed += itemCostPerPerson
+                allUserData[j].amountOwed += itemCostPerPerson;
+                allUserData[j].thingsPurchased[item] = itemCostPerPerson;
             }
         }
     }
@@ -164,6 +163,13 @@ const removePerson = (person) => {
 
 const removeItem = (item) => {
     document.getElementById(`${item}`).remove();
+
+    for (let people of allUserData) {
+        people.amountOwed -= people.thingsPurchased[item];
+        delete people.thingsPurchased[item];
+    }
+
+    console.log(allUserData);
 }
 
 const calculate = () => {
