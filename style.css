@@ -144,10 +144,20 @@ button {
   background-color: lightgray;
 }
 
-.results-btn {
+.user-btn {
   border: 1px solid black; 
   background-color: lightgray;
   padding-inline: .5rem;
+}
+
+.user-btns {
+  margin-top: .25rem;
+  margin-bottom: 1rem;
+  gap: .5rem;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .added-items-section, li, .total {
@@ -162,4 +172,8 @@ button {
   .results-section {
     grid-column: 1
   }
+}
+
+nav {
+  margin-bottom: 1rem;
 }

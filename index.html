@@ -36,9 +36,12 @@
             </section>
         </div>
         <section class="added-items-section flex column" id="added-item-section">
-            <div>
+            <div id="item-div">
                 <p class="bold" >Added Items:</p>
-                <ul id="items-list" role="list"></ul>
+                <div id="user-btns" class="flex user-btns">
+                    <button class="user-btn" onclick="viewBreakdown('all-items')">All</button>
+                </div>
+                <ul id="all-items-list" role="list"></ul>
             </div>
             <div class="column flex">
                 <div class="flex bold total"><p>Total:</p><p id="total">$0</p></div>
@@ -49,7 +52,8 @@
             <nav class="flex" id="results-nav">
                 <p class="bold">Results:</p>
             </nav>
-            <ul role="list" id="results-list"></ul>
+            <ul role="list" id="results-list">
+            </ul>
         </section>
     </div>
     <script src="app.js"></script>
