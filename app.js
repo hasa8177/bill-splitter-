@@ -166,10 +166,8 @@ const addItem = () => {
     elements.itemValue.focus();
 
     for (let name of peopleSplittingItem) {
-        addItemToSingleUserList(name, item, price);
+        addItemToSingleUserList(name, item, itemCostPerPerson);
     }
-
-    console.log(allUserData);
 }
 
 const updateTotal = (price) => {
@@ -193,6 +191,14 @@ const removePerson = (person) => {
     if (allUserData.length < 2) {
         elements.selectAllDiv.classList.add('hidden')
     }
+
+    const buttons = document.querySelectorAll('#user-btns button')
+
+    for (let button of buttons) {
+        if (button.innerText === person) {
+            button.remove();
+        }
+    }
 }
 
 const removeItem = (item) => {
@@ -202,8 +208,6 @@ const removeItem = (item) => {
         people.amountOwed -= people.thingsPurchased[item];
         delete people.thingsPurchased[item];
     }
-
-    console.log(allUserData);
 }
 
 const calculate = () => {
@@ -251,7 +255,7 @@ const viewBreakdown = (name) => {
     const allUsers = document.querySelectorAll('#item-div ul');
 
     for (let users of allUsers) {
-        users.classList.add('hidden')
+        users.classList.add('hidden');
     }
 
     userList.classList.remove('hidden');
