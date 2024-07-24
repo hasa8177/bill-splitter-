@@ -17,6 +17,7 @@ const elements =
     resultsNav: document.getElementById('results-nav'),
     userBtns: document.getElementById('user-btns'),
     itemDiv: document.getElementById('item-div'),
+    allUserBtn: document.getElementById('all-user-btn')
 }
 
 const allUserData = [];
@@ -26,41 +27,48 @@ const addPersonSplittingBill = () => {
     if (elements.whoIsSplittingInput.value === '') return;
 
     const name = elements.whoIsSplittingInput.value
+    const formattedName = name.toLowerCase();
 
     const personContainer = document.createElement('div');
     personContainer.classList.add('flex', 'person-container');
-    personContainer.setAttribute('id', `${name}`);
+    personContainer.setAttribute('id', `${formattedName}`);
 
     const removeBtn = document.createElement('button');
     removeBtn.innerText = 'X';
-    removeBtn.setAttribute('onclick', `removePerson('${name}')`);
+    removeBtn.setAttribute('onclick', `removePerson('${formattedName}')`);
     personContainer.appendChild(removeBtn);
 
     const person = document.createElement('p');
-    person.innerText = name;
+    person.innerText = capitalize(name);
     personContainer.appendChild(person);
 
     elements.listOfPeopleDiv.appendChild(personContainer);
 
-    allUserData.push({name: name, amountOwed: 0, thingsPurchased: {}})
+    allUserData.push({name: formattedName, amountOwed: 0, thingsPurchased: {}})
 
     elements.whoIsSplittingInput.value = '';
 
-    fillWhoPaidDropDown(name);
-    addCheckbox(name);
-    createUserBtn(name);
+    fillWhoPaidDropDown(formattedName);
+    addCheckbox(formattedName);
+    createUserBtn(formattedName);
 
     const singleUserList =  document.createElement('ul');
-    singleUserList.setAttribute('id', `${name.toLowerCase()}-items-list`);
+    singleUserList.setAttribute('id', `${formattedName}-items-list`);
     singleUserList.classList.add('hidden');
     elements.itemDiv.appendChild(singleUserList);
-    elements[`${name.toLowerCase()}ItemsList`] = singleUserList
+    elements[`${formattedName}ItemsList`] = singleUserList
+
+    console.log(allUserData);
+}
+
+const capitalize = (name) => {
+    return name.slice(0,1).toUpperCase() + name.slice(1);
 }
 
 const fillWhoPaidDropDown = (name) => {
     const option = document.createElement('option');
     option.value = name; 
-    option.innerText = name;
+    option.innerText = capitalize(name);
     option.setAttribute('id', `${name}-dropdown`);
     elements.whoPaid.appendChild(option) 
 }
@@ -80,7 +88,7 @@ const addCheckbox = (name) => {
     input.setAttribute('name', `people-to-split-item`);
     
     const label = document.createElement('label');
-    label.innerText = name; 
+    label.innerText = capitalize(name); 
     label.setAttribute('for', `${name}-checkbox`);
     
     checkboxContainer.appendChild(input);
@@ -102,7 +110,7 @@ const addItemToSingleUserList = (name, item, price) => {
     listElement.appendChild(div);
     
     const priceElement = document.createElement('span');
-    priceElement.innerText = price; 
+    priceElement.innerText = price.toFixed(2); 
     listElement.appendChild(priceElement);
     
     elements[`${name.toLowerCase()}ItemsList`].appendChild(listElement);
@@ -156,7 +164,7 @@ const addItem = () => {
     listElement.appendChild(div);
     
     const priceElement = document.createElement('span');
-    priceElement.innerText = price; 
+    priceElement.innerText = parseFloat(price).toFixed(2);
     listElement.appendChild(priceElement);
     
     elements.allItemsList.appendChild(listElement);
@@ -168,6 +176,8 @@ const addItem = () => {
     for (let name of peopleSplittingItem) {
         addItemToSingleUserList(name, item, itemCostPerPerson);
     }
+
+    console.log(allUserData);
 }
 
 const updateTotal = (price) => {
@@ -244,21 +254,43 @@ const calculate = () => {
 
 const createUserBtn = (name) => {
     const button = document.createElement('button'); 
-    button.innerText = name; 
+    button.innerText = capitalize(name); 
     button.setAttribute('onclick', `viewBreakdown("${name.toLowerCase()}")`);
+    button.setAttribute('id', `${name}UserBtn`)
     button.classList.add('user-btn');
+    elements[`${name.toLowerCase()}UserBtn`] = button;
     elements.userBtns.appendChild(button);
 }
 
 const viewBreakdown = (name) => {
     const userList = elements[`${name}ItemsList`]
     const allUsers = document.querySelectorAll('#item-div ul');
+    const allBtns = document.querySelectorAll('#user-btns button');
+    const userBtn = elements[`${name}UserBtn`]
 
     for (let users of allUsers) {
         users.classList.add('hidden');
     }
 
+    for (let btns of allBtns) {
+        btns.classList.remove('selected-btn')
+    }
+
     userList.classList.remove('hidden');
+    userBtn.classList.add('selected-btn');
+
+    elements.totalElement.innerText = ''
+
+    if (name === 'all') {
+        elements.totalElement.innerText = `$${total.toFixed(2)}`; 
+    } else {
+        for (let user of allUserData) {
+            if (user.name === name) {
+                elements.totalElement.innerText = `$${user.amountOwed.toFixed(2)}`;
+            }
+        }
+    }
+   
 }
 
 elements.whoIsSplittingInput.addEventListener('keydown', (e) => {

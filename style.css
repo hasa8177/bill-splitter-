@@ -150,6 +150,10 @@ button {
   padding-inline: .5rem;
 }
 
+.selected-btn {
+  border: 2px solid black;
+}
+
 .user-btns {
   margin-top: .25rem;
   margin-bottom: 1rem;
