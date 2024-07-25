@@ -57,8 +57,6 @@ const addPersonSplittingBill = () => {
     singleUserList.classList.add('hidden');
     elements.itemDiv.appendChild(singleUserList);
     elements[`${formattedName}ItemsList`] = singleUserList
-
-    console.log(allUserData);
 }
 
 const capitalize = (name) => {
@@ -176,8 +174,6 @@ const addItem = () => {
     for (let name of peopleSplittingItem) {
         addItemToSingleUserList(name, item, itemCostPerPerson);
     }
-
-    console.log(allUserData);
 }
 
 const updateTotal = (price) => {
@@ -191,6 +187,7 @@ const removePerson = (person) => {
     document.getElementById(person).remove();
     document.getElementById(`${person}-dropdown`).remove();
     document.getElementById(`${person}-checkbox-container`).remove();
+    document.getElementById(`${person}UserBtn`).remove();
 
     for (let i = 0; i < allUserData.length ; i++) {
             if (allUserData[i].name === person ) {
