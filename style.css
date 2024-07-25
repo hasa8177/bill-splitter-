@@ -76,6 +76,7 @@ select {
   width: min(50rem, 100vw - 2rem);
   margin: auto;
   margin-top: 1rem;
+  position: relative;
 }
 
 .flex {
@@ -110,6 +111,10 @@ select {
   outline: 1px solid black;
 }
 
+.small-gap {
+  gap: .25rem; 
+}
+
 /* General Styling */
 
 section {
@@ -124,6 +129,7 @@ body {
 h1 {
   text-align: center;
   margin-top: 3rem;
+  font-size: clamp(1rem, 5vw + 1rem, 2.5rem)
 }
 
 section {
@@ -161,10 +167,6 @@ button:hover {
 
 .added-items-section, li, .total {
   justify-content: space-between;
-}
-
-.results-section {
-  grid-column: span 2;
 }
 
 @media (max-width: 600px) {

@@ -41,17 +41,13 @@
                 </div>
                 <ul id="all-items-list" role="list"></ul>
             </div>
-            <div class="column flex">
+            <div class="column flex no-gap">
+                <div class="hidden bold" id="results-section">
+                    <ul role="list" id="results-list"></ul>
+                </div>
                 <div class="flex bold total"><p>Total:</p><p id="total">$0.00</p></div>
                 <input type="button" value="Calculate" id="add-item" onclick="calculate()">
             </div>
-        </section>
-        <section class="results-section">
-            <nav class="flex" id="results-nav">
-                <p class="bold">Results:</p>
-            </nav>
-            <ul role="list" id="results-list">
-            </ul>
         </section>
     </div>
     <script src="app.js"></script>

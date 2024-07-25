@@ -17,7 +17,8 @@ const elements =
     resultsNav: document.getElementById('results-nav'),
     userBtns: document.getElementById('user-btns'),
     itemDiv: document.getElementById('item-div'),
-    allUserBtn: document.getElementById('all-user-btn')
+    allUserBtn: document.getElementById('all-user-btn'),
+    resultsSection: document.getElementById('results-section')
 }
 
 const allUserData = [];
@@ -117,7 +118,7 @@ const addItemToSingleUserList = (name, item, price) => {
     div.classList.add('flex');
 
     const itemElement = document.createElement('span');
-    itemElement.innerText = item;
+    itemElement.innerText = capitalize(item);
     div.appendChild(itemElement);
 
     listElement.appendChild(div);
@@ -190,6 +191,8 @@ const addItem = () => {
     for (let name of peopleSplittingItem) {
         addItemToSingleUserList(name, item, itemCostPerPerson);
     }
+
+
 }
 
 const updateTotal = (price) => {
@@ -200,6 +203,10 @@ const updateTotal = (price) => {
 }
 
 const removePerson = (person) => {
+    if (elements.allItemsList.hasChildNodes()) {
+       return
+    };
+
     document.getElementById(person).remove();
     document.getElementById(`${person}-dropdown`).remove();
     document.getElementById(`${person}-checkbox-container`).remove();
@@ -245,6 +252,7 @@ const removeItem = (item, price) => {
 const calculate = () => {
     if (elements.totalElement.innerText === '$0.00') return; 
 
+    elements.resultsSection.classList.remove('hidden')
     elements.resultsList.innerHTML = '';
 
     const personOwed = elements.whoPaid.value;
@@ -257,7 +265,7 @@ const calculate = () => {
     }
 
     const personOwedElement = document.createElement('p');
-    personOwedElement.innerText = `${personOwed} is owed: $${amountOwedTotal.toFixed(2)}`
+    personOwedElement.innerText = `${capitalize(personOwed)} is owed: $${amountOwedTotal.toFixed(2)}`
     elements.resultsList.appendChild(personOwedElement);
 
     for (let i = 0; i < allUserData.length; i++) {
@@ -267,7 +275,7 @@ const calculate = () => {
             const owes = allUserData[i].amountOwed;
     
             const owesElement = document.createElement('p');
-            owesElement.innerText = `${name} owes $${owes.toFixed(2)}`
+            owesElement.innerText = `${capitalize(name)} owes $${owes.toFixed(2)}`
     
             elements.resultsList.appendChild(owesElement)
         }
