@@ -11,7 +11,7 @@
     <div class="wrapper grid">
         <div>
             <section class="flex column top-section">
-                <label class="bold" for="people-splittng-bill">Who is splitting the bill?</label>
+                <div class="refresh-bar flex"><label class="bold" for="people-splittng-bill">Who is splitting the bill?</label><button class="refresh-btn" onclick="location.reload()">&#x21BB;</button></div>
                 <input type="text" id="people-splittng-bill" autocomplete="off">
                 <input type="button" value="Add" id="add-person-btn" onclick="addPersonSplittingBill()">
                 <div id="list-of-people-div">
@@ -50,6 +50,11 @@
             </div>
         </section>
     </div>
+    <dialog>
+        <div class="alert bold">
+            <p class="alert">Cannot remove user while items are assigned to them.</p>
+        </div>
+    </dialog>
     <script src="app.js"></script>
 </body>
 </html>

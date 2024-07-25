@@ -18,7 +18,9 @@ const elements =
     userBtns: document.getElementById('user-btns'),
     itemDiv: document.getElementById('item-div'),
     allUserBtn: document.getElementById('all-user-btn'),
-    resultsSection: document.getElementById('results-section')
+    resultsSection: document.getElementById('results-section'),
+    dialog: document.querySelector('dialog'),
+    alertBtn: document.getElementById('alert-btn')
 }
 
 const allUserData = [];
@@ -204,7 +206,7 @@ const updateTotal = (price) => {
 
 const removePerson = (person) => {
     if (elements.allItemsList.hasChildNodes()) {
-       return
+       return elements.dialog.showModal();
     };
 
     document.getElementById(person).remove();
@@ -347,4 +349,8 @@ elements.checkboxDiv.addEventListener('change', () => {
 
         elements.checkAll.checked = checkedBoolean;
     }
+})
+
+elements.dialog.addEventListener('click', ()=> {
+    elements.dialog.close()
 })

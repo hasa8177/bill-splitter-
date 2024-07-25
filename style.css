@@ -76,7 +76,6 @@ select {
   width: min(50rem, 100vw - 2rem);
   margin: auto;
   margin-top: 1rem;
-  position: relative;
 }
 
 .flex {
@@ -120,6 +119,7 @@ select {
 section {
   background-color: lightgray;
   padding: 1rem;
+  margin: 1rem;
 }
 
 body {
@@ -128,12 +128,8 @@ body {
 
 h1 {
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
   font-size: clamp(1rem, 5vw + 1rem, 2.5rem)
-}
-
-section {
-  margin: 1rem;
 }
 
 input {
@@ -143,6 +139,16 @@ input {
 button {
   border: none;
   background-color: lightgray;
+}
+
+.refresh-bar {
+  justify-content: space-between;
+  margin-right: 1rem;
+  align-items: center;
+}
+
+.refresh-btn {
+  font-size: 1.8rem;
 }
 
 .user-btn {
@@ -169,12 +175,34 @@ button:hover {
   justify-content: space-between;
 }
 
+nav {
+  margin-bottom: 1rem;
+}
+
+dialog {
+  padding: 1rem;
+  background-color: rgb(232, 231, 231);
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  box-shadow: 
+    0 1px 1px hsl(0deg 0% 0% / 0.075),
+    0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 4px 4px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075),
+    0 16px 16px hsl(0deg 0% 0% / 0.075);
+  border: 2px solid black;
+}
+
+::backdrop {
+  background-color: hsla(0, 0%, 83%, 0.773);
+  backdrop-filter: blur(.25px);
+}
+
 @media (max-width: 600px) {
   .results-section {
     grid-column: 1
   }
-}
-
-nav {
-  margin-bottom: 1rem;
 }
