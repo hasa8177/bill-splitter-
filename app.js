@@ -60,7 +60,21 @@ const addPersonSplittingBill = () => {
 }
 
 const capitalize = (name) => {
-    return name.slice(0,1).toUpperCase() + name.slice(1);
+    lowerCaseName = name.toLowerCase()
+    nameArray = [...lowerCaseName]; 
+    nameArray[0] = nameArray[0].toUpperCase();
+
+    while (nameArray[nameArray.length - 1] === ' ') {
+        nameArray.pop()
+    }
+    
+    for (let i = 0; i < nameArray.length; i++) {
+        if (nameArray[i] === ' ') {
+            nameArray[i+1] = nameArray[i+1].toUpperCase();
+        }
+    }
+
+    return nameArray.join('');
 }
 
 const fillWhoPaidDropDown = (name) => {
@@ -97,6 +111,7 @@ const addCheckbox = (name) => {
 const addItemToSingleUserList = (name, item, price) => {
     const listElement = document.createElement('li');
     listElement.classList.add('flex');
+    listElement.setAttribute('id', `${name}-${item}`);
 
     const div = document.createElement('div');
     div.classList.add('flex');
@@ -116,6 +131,7 @@ const addItemToSingleUserList = (name, item, price) => {
 
 const addItem = () => {
     if (elements.itemValue.value === '' || elements.priceValue.value === '') return;
+    if (document.querySelectorAll('#checkbox-div input[type="checkbox"]:checked').length < 1) return; 
 
     const item = elements.itemValue.value
     const price = elements.priceValue.value
@@ -152,11 +168,11 @@ const addItem = () => {
     
     const removeBtn = document.createElement('button');
     removeBtn.innerText = 'X';
-    removeBtn.setAttribute('onclick', `removeItem('${item}')`);
+    removeBtn.setAttribute('onclick', `removeItem('${item}', '${price}')`);
     div.appendChild(removeBtn);
 
     const itemElement = document.createElement('span');
-    itemElement.innerText = item;
+    itemElement.innerText = capitalize(item);
     div.appendChild(itemElement);
 
     listElement.appendChild(div);
@@ -208,17 +224,26 @@ const removePerson = (person) => {
     }
 }
 
-const removeItem = (item) => {
+const removeItem = (item, price) => {
     document.getElementById(`${item}`).remove();
 
     for (let people of allUserData) {
         people.amountOwed -= people.thingsPurchased[item];
         delete people.thingsPurchased[item];
     }
+
+    for (let user of allUserData) {
+       if (document.getElementById(`${user.name}-${item}`)) {
+            document.getElementById(`${user.name}-${item}`).remove();
+       }
+    }
+
+    total -= price
+    updateTotal(0);
 }
 
 const calculate = () => {
-    if (elements.totalElement.innerText === '$0') return; 
+    if (elements.totalElement.innerText === '$0.00') return; 
 
     elements.resultsList.innerHTML = '';
 
@@ -295,7 +320,7 @@ elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
 })
 
 elements.itemInputSection.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && document.querySelectorAll('#checkbox-div input[type="checkbox"]:checked').length > 1) addItem();
+    if (e.key === 'Enter') addItem();
 })
 
 elements.checkAll.addEventListener('change', () => {
