@@ -46,14 +46,19 @@
                     <ul role="list" id="results-list"></ul>
                 </div>
                 <div class="flex bold total"><p>Total:</p><p id="total">$0.00</p></div>
-                <input type="button" value="Calculate" id="add-item" onclick="calculate()">
+                <input type="button" value="Add Tax" id="add-item" onclick="getTax()">
             </div>
         </section>
     </div>
-    <dialog>
+    <dialog id="alert-dialog">
         <div class="alert bold">
             <p class="alert">Cannot remove user while items are assigned to them.</p>
         </div>
+    </dialog>
+    <dialog id="tax-dialog">
+        <label for="tax">Enter Tax:</label>
+        <input type="number" id="tax-input">
+        <input type="button" value="Enter" onclick="addTax()">
     </dialog>
     <script src="app.js"></script>
 </body>

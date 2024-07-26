@@ -92,12 +92,6 @@ select {
   grid-template-columns: 1fr 1fr;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .bold {
   font-weight: 600;
 }
@@ -142,13 +136,14 @@ button {
 }
 
 .refresh-bar {
-  justify-content: space-between;
   margin-right: 1rem;
   align-items: center;
 }
 
 .refresh-btn {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  width: 2rem;
+  aspect-ratio: 1;
 }
 
 .user-btn {
@@ -171,12 +166,8 @@ button:hover {
   cursor: pointer;
 }
 
-.added-items-section, li, .total {
+.added-items-section, li, .total, .refresh-bar {
   justify-content: space-between;
-}
-
-nav {
-  margin-bottom: 1rem;
 }
 
 dialog {
@@ -204,5 +195,8 @@ dialog {
 @media (max-width: 600px) {
   .results-section {
     grid-column: 1
+  }
+  .grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -19,8 +19,10 @@ const elements =
     itemDiv: document.getElementById('item-div'),
     allUserBtn: document.getElementById('all-user-btn'),
     resultsSection: document.getElementById('results-section'),
-    dialog: document.querySelector('dialog'),
-    alertBtn: document.getElementById('alert-btn')
+    alertDialog: document.getElementById('alert-dialog'),
+    alertBtn: document.getElementById('alert-btn'),
+    taxDialog: document.getElementById('tax-dialog'),
+    taxInput: document.getElementById('tax-input'),
 }
 
 const allUserData = [];
@@ -206,7 +208,7 @@ const updateTotal = (price) => {
 
 const removePerson = (person) => {
     if (elements.allItemsList.hasChildNodes()) {
-       return elements.dialog.showModal();
+       return elements.alertDialog.showModal();
     };
 
     document.getElementById(person).remove();
@@ -252,8 +254,6 @@ const removeItem = (item, price) => {
 }
 
 const calculate = () => {
-    if (elements.totalElement.innerText === '$0.00') return; 
-
     elements.resultsSection.classList.remove('hidden')
     elements.resultsList.innerHTML = '';
 
@@ -325,6 +325,60 @@ const viewBreakdown = (name) => {
    
 }
 
+const getTax = () => {
+    if (elements.totalElement.innerText === '$0.00') return; 
+    elements.taxDialog.showModal();
+}
+
+const addTax = () => {
+    elements.taxDialog.close()
+    const taxTotal = parseFloat(elements.taxInput.value);
+    let userTaxData = []
+
+    for (let user of allUserData) {
+        const taxOwed = (user.amountOwed / total) * taxTotal
+        console.log(taxOwed);
+        userTaxData.push({name: user.name, taxOwed})
+    }
+
+    const taxListElement = document.createElement('li');
+    taxListElement.setAttribute('id', 'tax');
+    taxListElement.classList.add('flex'); 
+
+    const taxDiv = document.createElement('div'); 
+    taxDiv.classList.add('flex'); 
+
+    const button = document.createElement('button'); 
+    button.setAttribute('onclick', `removeItem('tax', ${taxTotal})`);
+    button.innerText = "X";
+
+    const taxElement = document.createElement('span'); 
+    taxElement.innerText = 'Tax'
+
+    const taxAmountElement = document.createElement('span');
+    taxAmountElement.innerText = taxTotal
+
+    taxDiv.appendChild(button); 
+    taxDiv.appendChild(taxElement);
+    taxListElement.appendChild(taxDiv);
+    taxListElement.appendChild(taxAmountElement);
+
+    elements.allItemsList.appendChild(taxListElement);
+
+    for (let user of userTaxData) {
+        addItemToSingleUserList(user.name, "tax", user.taxOwed)
+
+        for (let i = 0; i < allUserData.length; i++) {
+            if (user.name = allUserData[i].name) {
+                allUserData[i].thingsPurchased.tax = user.taxOwed;
+            }
+        }
+    }
+
+    total += taxTotal;
+    calculate(userTaxData);
+}
+
 elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && elements.whoIsSplittingInput.value !== '') addPersonSplittingBill();
 })
@@ -351,6 +405,6 @@ elements.checkboxDiv.addEventListener('change', () => {
     }
 })
 
-elements.dialog.addEventListener('click', ()=> {
-    elements.dialog.close()
+elements.alertDialog.addEventListener('click', ()=> {
+    elements.alertDialog.close()
 })
