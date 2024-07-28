@@ -331,13 +331,13 @@ const getTax = () => {
 }
 
 const addTax = () => {
-    elements.taxDialog.close()
+     elements.taxDialog.close()
+
     const taxTotal = parseFloat(elements.taxInput.value);
     let userTaxData = []
 
     for (let user of allUserData) {
         const taxOwed = (user.amountOwed / total) * taxTotal
-        console.log(taxOwed);
         userTaxData.push({name: user.name, taxOwed})
     }
 
@@ -356,7 +356,7 @@ const addTax = () => {
     taxElement.innerText = 'Tax'
 
     const taxAmountElement = document.createElement('span');
-    taxAmountElement.innerText = taxTotal
+    taxAmountElement.innerText = taxTotal.toFixed(2);
 
     taxDiv.appendChild(button); 
     taxDiv.appendChild(taxElement);
@@ -367,16 +367,21 @@ const addTax = () => {
 
     for (let user of userTaxData) {
         addItemToSingleUserList(user.name, "tax", user.taxOwed)
+        console.log(user.name, "tax", user.taxOwed);
 
         for (let i = 0; i < allUserData.length; i++) {
-            if (user.name = allUserData[i].name) {
+            if (user.name === allUserData[i].name) {
+                console.log(allUserData[i]);
+
                 allUserData[i].thingsPurchased.tax = user.taxOwed;
+                allUserData[i].amountOwed += user.taxOwed
+
+                console.log(allUserData[i]);
             }
         }
     }
 
-    total += taxTotal;
-    calculate(userTaxData);
+    updateTotal(taxTotal);
 }
 
 elements.whoIsSplittingInput.addEventListener('keydown', (e) => {
@@ -403,8 +408,4 @@ elements.checkboxDiv.addEventListener('change', () => {
 
         elements.checkAll.checked = checkedBoolean;
     }
-})
-
-elements.alertDialog.addEventListener('click', ()=> {
-    elements.alertDialog.close()
 })

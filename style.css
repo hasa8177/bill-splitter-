@@ -108,6 +108,10 @@ select {
   gap: .25rem; 
 }
 
+.grow {
+  flex-grow: 1;
+}
+
 /* General Styling */
 
 section {

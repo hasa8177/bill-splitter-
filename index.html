@@ -46,7 +46,10 @@
                     <ul role="list" id="results-list"></ul>
                 </div>
                 <div class="flex bold total"><p>Total:</p><p id="total">$0.00</p></div>
-                <input type="button" value="Add Tax" id="add-item" onclick="getTax()">
+                <div class="flex">
+                    <input class="grow" type="button" value="Add Tax" id="add-item" onclick="getTax()">
+                    <input class="grow" type="button" value="Calculate" id="add-item" onclick="calculate()">
+                </div>
             </div>
         </section>
     </div>
